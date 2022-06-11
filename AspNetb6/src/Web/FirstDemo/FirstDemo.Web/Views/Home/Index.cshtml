@@ -1,0 +1,28 @@
+﻿@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+@section Styles
+{
+    @*<link rel="stylesheet" href="~/scss/home.css">*@
+}
+<div class="text-center">
+    <h1 class="display-4">@Model?.Message</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<form asp-area="" asp-controller="Home" asp-action="Index" asp-antiforgery="true" method="post">
+    <input type="text" asp-for="Message" />
+    <input type="submit" value="Submit" />
+</form>
+
+<div>
+    <button>Hello</button>
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        console.log($(".display-4").text());
+    </script>
+}

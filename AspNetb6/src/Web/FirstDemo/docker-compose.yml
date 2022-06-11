@@ -1,0 +1,19 @@
+version: "3"
+services:
+    web:
+        build:
+          context: .
+          dockerfile: FirstDemo.Web/Dockerfile
+        image: firstdemoweb
+        container_name: first_demo_web
+        restart: unless-stopped
+        tty: true
+        env_file: 
+            - web.env
+        ports:
+            - "8000:80"
+        volumes:
+            - firstdemoweb-data:/app/Logs
+volumes:
+     firstdemoweb-data: 
+        external: true

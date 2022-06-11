@@ -1,0 +1,149 @@
+﻿@model StudentListModel
+@{
+    ViewData["Title"] = "All Student";
+    ViewData["PageNav"] = "Students";
+}
+@section Styles
+{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+}
+<div class="col-12">
+    <div class="card card-outline card-primary collapsed-card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Applicants</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" asp-for="SearchItem.Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" asp-for="SearchItem.Address" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            <button id="searchButton" type="submit" class="btn btn-primary float-right">Search</button>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="float-left">
+                    <h3 class="card-title">Currently Available Students</h3>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="float-right">
+                    <a asp-action="Create" asp-controller="Student" class="btn btn-outline-info btn-sm">Add Student<i class="fa fa-plus ml-2"></i> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="students" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>CGPA</th>
+                <th>Address</th>
+                <th style="width:20%">Actions</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>CGPA</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <partial name="_ModalPartial" />
+</div>
+<!-- /.card -->
+
+
+
+@section Scripts
+{
+    <!-- DataTables -->
+    <script src="/adminlte/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(function () {
+            $('#students').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/admin/student/getstudents",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.SearchItem = {
+                            Name: $("#SearchItem_Name").val(),
+                            Address: $("#SearchItem_Address").val()
+                        }
+                    },
+                },
+                "columnDefs": [
+                    {
+                        "orderable": false,
+                        "targets": 3,
+                        "render": function (data, type, row) {
+                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/student/edit/${data}'" value='${data}'>
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </button>`;
+                        }
+                    }
+                ]
+            });
+
+            $("#searchButton").click(function () {
+                $('#students').DataTable().ajax.reload(null, false);
+            });
+
+            $('#students').on('click', '.show-bs-modal', function (event) {
+                var id = $(this).data("id");
+                var modal = $("#modal-default");
+                modal.find('.modal-body p').text('Are you sure you want to delete this record?');
+                $("#deleteId").val(id);
+                $("#deleteForm").attr("action", "/admin/student/delete");
+                modal.modal('show');
+            });
+
+            $("#deleteButton").click(function () {
+                $("#deleteForm").submit();
+            });
+        });
+    </script>
+    
+}
+

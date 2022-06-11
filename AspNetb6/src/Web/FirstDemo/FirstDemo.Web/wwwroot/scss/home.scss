@@ -1,0 +1,25 @@
+﻿@import "./initial";
+
+.mybtn {
+    background-color: $myColor;
+}
+
+.mypara {
+    color: $myColor;
+}
+
+div {
+    background-color: red;
+
+    button {
+        background-color: green;
+
+        &:hover {
+            @include someStyle($myColor, 5px, 10px);
+        }
+    }
+}
+
+button {
+    @include someStyle($myColor, 2px, 3px);
+}

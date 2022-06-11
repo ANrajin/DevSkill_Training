@@ -1,0 +1,71 @@
+﻿@model CourseCreateModel
+@{
+    ViewData["Title"] = "Create New Course";
+    ViewData["PageNav"] = "Create Course";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header">
+            <h3 class="card-title">Create Course Form</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" asp-controller="Course" asp-action="Create" method="post" asp-antiforgery="true" >
+                <div id="form" class="card-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title">Title</label>
+                        <input type="text" class="form-control" asp-for="Title" id="title">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fees">Fees</label>
+                        <input type="text" class="form-control" asp-for="Fees" id="fees">
+                        <span asp-validation-for="Fees" class="text-danger"></span>
+                    </div>
+                    <button id="addTopic" type="button" class="btn btn-primary float-right">Add Another Topic</button>
+                    <br/>
+                    <div class="form-group">
+                        <label>Topic Title</label>
+                        <input type="text" class="form-control" name="TopicTitle">
+                        <br/>
+                        <label>Topic Description</label>
+                        <input type="text" class="form-control" name="TopicDescription">
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <a asp-action="Index" asp-controller="Course" asp-area="Admin" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</div><!-- /.container-fluid -->
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(function () {
+            var html = "<div class='form-group'><label>Topic Title</label><input type='text' class='form-control' name='TopicTitle'><br/><label>Topic Description</label><input type='text' class='form-control' name='TopicDescription'></div>";
+
+            $("#addTopic").click(function(){
+                $("#form").append(html);
+            });
+        });
+        
+    </script>
+}

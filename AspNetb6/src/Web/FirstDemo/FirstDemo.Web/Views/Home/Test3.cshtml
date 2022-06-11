@@ -1,0 +1,31 @@
+﻿@model TestModel
+@{
+    ViewData["Title"] = "Test3";
+}
+
+<h1>Test3</h1>
+@if(Model.Data != null)
+{
+    <table>
+        <thead>
+            <tr>
+            @for(int i = 0; i< Model.Data.Tables[0].Columns.Count; i++)
+            {
+                <td>@Model.Data.Tables[0].Columns[i].ColumnName</td>
+            }
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i = 0; i< Model.Data.Tables[0].Rows.Count; i++)
+            {
+            <tr>
+                @for(int j = 0; j< Model.Data.Tables[0].Columns.Count; j++)
+                {
+                    <td>@Model.Data.Tables[0].Rows[i][j]</td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+

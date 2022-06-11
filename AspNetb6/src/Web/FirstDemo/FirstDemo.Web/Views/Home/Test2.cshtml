@@ -1,0 +1,29 @@
+﻿@model TestModel
+
+<div>
+	@if (Model.Courses != null && Model.Courses.Count > 0)
+	{
+		<table>
+			<thead>
+				<tr>
+					@foreach (var key in Model.Courses[0].Keys)
+					{
+						<td>@key</td>
+
+					}
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var row in Model.Courses)
+				{
+					<tr>
+						@foreach (var col in row)
+						{
+							<td>@col.Value</td>
+						}
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+</div>

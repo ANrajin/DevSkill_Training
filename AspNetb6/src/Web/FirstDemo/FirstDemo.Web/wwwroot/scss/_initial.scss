@@ -1,0 +1,7 @@
+﻿$myColor: green;
+
+@mixin someStyle($color, $margin, $padding) {
+    background-color: $color;
+    padding: $margin;
+    margin: $padding;
+}
