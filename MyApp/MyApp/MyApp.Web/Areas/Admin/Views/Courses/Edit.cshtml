@@ -1,0 +1,45 @@
+﻿@model CourseEditModel
+
+@{
+    ViewData["Title"] = "Edit Course";
+    ViewData["breadcrumb"] = "Edit Course";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <form role="form" asp-controller="Courses" asp-action="Edit" method="post" asp-antiforgery="true">
+                        <input type="hidden" asp-for="Id"/>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" asp-for="Title" id="title" class="form-control"
+                                placeholder="Enter course title here ...">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="fees">Course Fees</label>
+                            <input type="text" asp-for="Fees" id="fees" class="form-control"
+                                placeholder="Enter course fees here ...">
+                                <span asp-validation-for="Fees" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Save</button>
+                        <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Courses" asp-action="Index">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

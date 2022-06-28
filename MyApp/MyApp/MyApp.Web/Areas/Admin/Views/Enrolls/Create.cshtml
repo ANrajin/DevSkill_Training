@@ -1,0 +1,38 @@
+﻿@model EnrollmentCreateModel
+@{
+    ViewData["Title"] = "Enroll a new student";
+    ViewData["breadcrumb"] = "Enroll a new student";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <form role="form" asp-controller="Enrolls" asp-action="Create" method="post" asp-antiforgery="true">
+                        <div class="form-group">
+                            <label asp-for="CourseId">All Courses</label>
+                            <select class="form-control" asp-for="CourseId" asp-items="Model.Courses">
+                                <option selected disabled>Please select a course</option> 
+                            </select>
+                            <span class="text-danger" asp-validation-for="CourseId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="StudentID">All Students</label>
+                            <select class="form-control" asp-for="StudentID" asp-items="Model.Students">
+                                <option selected disabled>Please select a student</option> 
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Save</button>
+                        <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,50 @@
+﻿@model StudentEditModel
+@{
+    ViewData["Title"] = "Edit Student";
+    ViewData["breadcrumb"] = "Edit Student";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <form role="form" asp-controller="Students" asp-action="Edit" method="post" asp-antiforgery="true">
+                        <input type="hidden" asp-for="Id"/>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" asp-for="Name" id="name" class="form-control"
+                                placeholder="Enter student name here ...">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="cgpa">CGPA</label>
+                            <input type="text" asp-for="CGPA" id="cgpa" class="form-control"
+                                placeholder="Enter CGPA here ...">
+                                <span asp-validation-for="CGPA" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea rows="5" class="form-control" id="address" 
+                                asp-for="Address" placeholder="Student address ..."></textarea>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Save</button>
+                        <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Students" asp-action="Index">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

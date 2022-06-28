@@ -1,0 +1,19 @@
+version: "3"
+services:
+    web:
+        build:
+          context: .
+          dockerfile: MyApp.Web/Dockerfile
+        image: myfirstwebapp
+        container_name: myfirstapp
+        restart: unless-stopped
+        tty: true
+        env_file: 
+            - web.env
+        ports:
+            - "8000:80"
+        volumes:
+            - myappweb-data:/app/Logs
+volumes:
+     myappweb-data: 
+        external: true
